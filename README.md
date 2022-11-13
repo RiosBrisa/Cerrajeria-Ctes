@@ -18,19 +18,18 @@ El presente proyecto pretende mostrar el funcionamiento de una base de datos de 
 1. Primero, debe descargar el siguiente archivo zip si no lo ha hecho: Cerrajeria-Ctes-main.zip
 2. En segundo lugar, descomprima el archivo zip, verá cuatro archivos de script SQL:
 * DefinicionModeloDatos_Cerrajeria2022, Este archivo es para crear la base de datos con sus respectivas tablas.
-* ABM BD Cerrajeria - Este archivo es para crear los procecimiento almacenados y funciones necesarios para realizar los ABM (Altas, Bajas, Modificaciones) en la base de datos
-* Vistas-Usuarios-Triggers_Cerrajeria - Este archivo es para insertar las vistas, permisos de usuarios y triggers en la base de datos.
-* Lote_Datos_Cerrajeria - Este archivo es para insertar datos en las tablas.
+* ABM, Trigger, Vistas BD Cerrajeria - Este archivo contiene los procecimiento almacenados y funciones necesarios para realizar los ABM (Altas, Bajas, Modificaciones) en la base de datos, y triggers desarrollados para realizar auditorias
+* Transaccion, Permisos - Este contiene los procediminetos para crear y asignar permisos a los usuarios, y una transaccion desarrollado sobre la entidad factura.
+* Lote_Datos_Cerrajeria - Este archivo contiene los datos a insertar en las tablas.
 3. Conéctese al Servidor SQL
 4. En el menú Archivo, elija Abrir> Archivo ... elemento de menú para abrir un archivo de script.
 5. Seleccione DefinicionModeloDatos_Cerrajeria2022
 6. En la barra Estándar, seleccione Ejecutar para ejecutar el script SQL.
 7. Debería ver que el siguiente resultado indica que la consulta se ejecutó correctamente: Query executed successfully
 8. Siga los pasos 4 a 6 para los siguientes scripts, recuerde que se debe ejecutar en el orden que se indica a continuacion:
-* ABM BD Cerrajeria
-* Vistas-Usuarios-Triggers_Cerrajeria
+* ABM, Trigger, Vistas BD Cerrajeria
 * Lote_Datos_Cerrajeria
-
+* Transaccion, Permisos
 
 ## Construido con 🛠️
 
