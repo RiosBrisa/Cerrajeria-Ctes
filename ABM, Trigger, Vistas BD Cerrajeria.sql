@@ -1,12 +1,14 @@
---USE cerrajeria;
---G0
+USE cerrajeria;
+GO
 
 
 --Script de creacion de procedimientos almacenados de ABM ,ALTAS,BAJAS y MODIFICACIONES, de las tablas de la base de datos carrajeria
+
 ------------ 
 --MARCAS----
 ------------
 --ALTAS--
+
 CREATE PROCEDURE insertarMarca
 	@Descripcion_marca varchar(50)
 AS
@@ -86,12 +88,12 @@ CREATE PROCEDURE insertarUsuario
    @Apellido_usuario varchar(30) ,
    @Telefono_usuario bigint,
    @Email_usuario varchar(50) ,
-   @Contraseña_usuario varchar(8),
+   @ContraseÃ±a_usuario varchar(8),
    @FechaNac Date
 AS
 BEGIN
 	INSERT INTO Usuarios
-	VALUES(@Nombre_usuario,@Apellido_usuario, @Telefono_usuario, @Email_usuario, @Contraseña_usuario, @FechaNac);
+	VALUES(@Nombre_usuario,@Apellido_usuario, @Telefono_usuario, @Email_usuario, @ContraseÃ±a_usuario, @FechaNac);
 END 
 GO
 
@@ -102,7 +104,7 @@ CREATE PROCEDURE modificarUsuario
    @Apellido_usuario varchar(30) ,
    @Telefono_usuario bigint,
    @Email_usuario varchar(50),
-   @Contraseña_usuario varchar(8),
+   @ContraseÃ±a_usuario varchar(8),
    @FechaNac Date
 AS
 BEGIN
@@ -112,7 +114,7 @@ BEGIN
 	Apellido_usuario = @Apellido_usuario, 
 	Telefono_usuario = @Telefono_usuario, 
 	Email_usuario =  @Email_usuario, 
-	Contraseña_usuario = @Contraseña_usuario,
+	ContraseÃ±a_usuario = @ContraseÃ±a_usuario,
 	FechaNac = @FechaNac
     WHERE Id_Usuario = @Id_Usuario
 END
@@ -255,14 +257,14 @@ GO
 --MODIFICACIONES--
 CREATE PROCEDURE modificarSucursal
 	@Id_Sucursal Int,
-	@Razon_Social_sucursal Varchar(50),
+	@Razon_Social_sucursal VARCHAR(50),
 	@Direccion_sucursal Varchar(50),
 	@Telefono_sucursal bigint
 AS
 BEGIN
 	UPDATE Sucursal
 	SET
-	Razon_Social_sucural = @Razon_Social_sucursal,
+	Razon_Social_sucursal = @Razon_Social_sucursal,
 	Direccion_sucursal = @Direccion_sucursal,
 	Telefono_sucursal = @Telefono_sucursal
     WHERE Id_Sucursal = @Id_Sucursal
@@ -284,45 +286,36 @@ GO
 --TURNO----
 -----------
 --ALTAS--
+
 CREATE PROCEDURE insertarTurno
    @Fecha_reserva date,
    @Id_Horario INT,
    @Id_Sucursal INT,
-   @Id_Usuario int
-AS
+   @Id_Usuario INT
 
+AS 
 BEGIN
-	BEGIN TRAN
-	BEGIN TRY
-    IF (SELECT dbo.VerificarTurnoUsuario (@Id_Usuario, @Fecha_reserva)) = 0
-	INSERT INTO Turno VALUES(@Fecha_reserva, @Id_Horario,@Id_Sucursal,@Id_Usuario);
-	COMMIT TRAN
-	END TRY
-	BEGIN CATCH
-	ROLLBACK TRAN
-	PRINT 'ERROR'
-	END CATCH
-END; 
+	IF (dbo.VerificarTurnoUsuario (@Id_Usuario, @Fecha_reserva) = 0)	
+	INSERT Turno
+	VALUES(@Fecha_reserva, @Id_Horario,@Id_Sucursal,@Id_Usuario);
+	ELSE 
+	SELECT 'ERROR' AS MENSAJE
+END;
 GO
--- Disable all constraints for database
-EXEC sp_msforeachtable "ALTER TABLE ? NOCHECK CONSTRAINT all"
--- Enable all constraints for database
-EXEC sp_msforeachtable "ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all"
-SELECT * FROM turno
 
 CREATE FUNCTION VerificarTurnoUsuario (@Id_Usuario AS INT, @FechaReserva as DATE)
 RETURNS INT
 AS 
 BEGIN
-   DECLARE @Cant INT
+   DECLARE @Cant INT =0
    DECLARE @FechaActual DATE = GETDATE()
    Select @Cant = count(*) from turno where id_Usuario =  @Id_Usuario and Fecha_Reserva = @FechaReserva
    RETURN @Cant
 END;
+GO
 
 --MODIFICACIONES--
 CREATE PROCEDURE modificarTurno
-   @Id_reserva INT,
    @Fecha_reserva date,
    @Id_Horario INT,
    @Id_Sucursal INT,
@@ -331,22 +324,20 @@ AS
  BEGIN
 	UPDATE Turno
 	SET
-	   Fecha_reserva = @Fecha_reserva,
-	   Id_Horario = @Id_Horario,
-	   Id_Sucursal = @Id_Sucursal,
-	   Id_Usuario = @Id_Usuario,   
-	   Fecha_emision = GETDATE()
-    WHERE Id_Reserva = @Id_reserva
+	   Id_Usuario = @Id_Usuario   
+    WHERE    Fecha_reserva = @Fecha_reserva AND Id_Horario = @Id_Horario AND Id_Sucursal = @Id_Sucursal
 END
 GO
 
 --BAJAS--
 CREATE PROCEDURE bajaTurno
-	@Id_Reserva INT
+   @Fecha_reserva date,
+   @Id_Horario INT,
+   @Id_Sucursal INT
 AS
 BEGIN
 	DELETE FROM Turno
-		WHERE Id_Reserva = @Id_Reserva
+		WHERE Fecha_reserva = @Fecha_reserva AND Id_Horario = @Id_Horario AND Id_Sucursal = @Id_Sucursal
 END
 GO
 
@@ -405,8 +396,6 @@ BEGIN
 		WHERE Id_Empleado = @Id_Empleado
 END
 GO
-
-
 --------------
 --Vehiculo----
 --------------
@@ -457,6 +446,7 @@ GO
 ---------------
 --ALTAS--
 CREATE PROCEDURE insertarConsultas
+	@Id_Consulta int,
    @Id_Servicio int,
    @descripcion_consulta varchar(100)
 
@@ -464,7 +454,7 @@ AS
 BEGIN
 	INSERT INTO Consultas
    
-	VALUES(@Id_Servicio, @descripcion_consulta);
+	VALUES(@Id_Consulta,@Id_Servicio, @descripcion_consulta);
 END 
 GO
 
@@ -477,20 +467,19 @@ AS
 BEGIN
 	UPDATE Consultas
 	SET
-		
-	Id_Servicio = @Id_Servicio,
 	descripcion_consulta = @descripcion_consulta	
-    WHERE Id_Consulta = @Id_Consulta
+    WHERE Id_Consulta = @Id_Consulta and Id_Servicio = @Id_Servicio
 END
 GO
 
 --BAJAS--
 CREATE PROCEDURE bajaConsultas
-	@Id_Consulta INT
+	@Id_Consulta INT,
+	@Id_Servicio INT 
 AS
 BEGIN
 	DELETE FROM Consultas
-		WHERE Id_Consulta = @Id_Consulta
+		WHERE Id_Consulta = @Id_Consulta AND Id_Servicio = @Id_Servicio
 END
 GO
 
@@ -501,12 +490,13 @@ GO
 --ALTAS--
 CREATE PROCEDURE insertarRespuestas
    @Id_Consulta int,
+   @Id_Servicio INT,
    @descripcion_respuesta VARCHAR(100)
 AS
 BEGIN
 	INSERT INTO Respuesta_Consulta
    
-	VALUES(@Id_Consulta, @descripcion_respuesta);
+	VALUES(@Id_Consulta, @Id_Servicio, @descripcion_respuesta);
 END 
 GO
 
@@ -514,6 +504,7 @@ GO
 CREATE PROCEDURE modificarRespuestas
    @Id_Respuesta int,
    @Id_Consulta int,
+   @Id_Servicio INT,
    @descripcion_respuesta varchar(100)
 AS
 BEGIN
@@ -521,6 +512,7 @@ BEGIN
 	SET
 		
 	Id_Consulta = @Id_Consulta,
+	Id_Servicio = @Id_Servicio,
 	descripcion_respuesta = @descripcion_respuesta	
     WHERE Id_Respuesta = @Id_Respuesta
 END
@@ -620,44 +612,120 @@ BEGIN
 END
 GO
 
-BEGIN TRANSACTION 
-BEGIN TRY
-EXEC insertarFactura 
 
-/* Confirmamos la transaccion*/
-COMMIT TRANSACTION 
-	/*Registrar Cabecera de factura*/
-    EXEC insertarFactura CA384ND,7,3, '6/5/2022'
-	/*Registrar Detalle de Factura*/
-	EXEC insertarFacturaDetalle 15, 1,9500
-    EXEC insertarFacturaDetalle 15, 3,15000
-END TRY
+--Llamada a la funciÃ³n
+--SELECT dbo.verificarEmpleado(15) as EMPLEADO
 
-BEGIN CATCH
 
-/* Ocurrió un error, deshacemos los cambios*/ 
-ROLLBACK TRANSACTION
-PRINT 'Ha ocurrido un error!'
+--FUNCION--
+--Recibe como parametro el numero de factura y retorna el codigo del empleado que realizo los servicios asociados a la factura
+ CREATE FUNCTION verificarEmpleado (@nroFactura AS int)
+	RETURNS INT
+	AS
+	BEGIN
+	DECLARE @retornaEmpleado INT
+	SELECT @retornaEmpleado = Id_Empleado from Facturas 
+	WHERE Id_Factura = @nroFactura
+	RETURN @retornaEmpleado
+	END;
+GO
 
-END CATCH
+
+-- Se genera una tabla denominada auditoria para registrar cuando se hagan eliminaciones o inserciones en la tabla formulario
+CREATE TABLE auditoria(
+	Fecha_reserva DATE  NOT NULL,
+    Id_Horario INT NOT NULL,
+    Id_Sucursal INT NOT NULL,
+    Id_Usuario INT NOT NULL,
+	fechaModificacion DATETIME NOT NULL,
+	usuario VARCHAR(50) NOT NULL,
+	tipoOperacion VARCHAR(10)
+);
+GO
+
+--TRIGGERS--
+
+--TRIGGER que registra las inserciones que se hagan en la tabla turnos
+CREATE TRIGGER TR_turno_INSERT 
+ON Turno
+	AFTER INSERT
+AS
+BEGIN
+	INSERT INTO auditoria
+	(Fecha_reserva,Id_Horario,Id_Sucursal,Id_Usuario,fechaModificacion, usuario,tipoOperacion)
+	SELECT Fecha_reserva,Id_Horario,Id_Sucursal,Id_Usuario, GETDATE(), system_user, 'insertar'
+	FROM inserted
+END
+
+GO
+
+--TRIGGER que registra las eliminaciones que se hagan en la tabla turnos
+CREATE TRIGGER TR_turno_DELETE 
+ON Turno
+	AFTER DELETE
+AS
+BEGIN
+	INSERT INTO auditoria
+	(Fecha_reserva,Id_Horario,Id_Sucursal,Id_Usuario,fechaModificacion, usuario,tipoOperacion)
+	SELECT Fecha_reserva , Id_Horario,Id_Sucursal,Id_Usuario, GETDATE(), system_user, 'eliminar'
+	FROM deleted
+	
+END
+GO
+/*Sentencias para eliminar los triggers*/
+--drop trigger TR_turno_DELETE 
+--drop trigger TR_turno_INSERT
+
+
 
 --VISTAS--
-
+CREATE VIEW Detalles_Facturacion
+AS
+SELECT df.Id_Factura as "NÂ° Factura", 
+s.Descripcion_servicio as Servicio, 
+CONCAT(u.Apellido_usuario, ' ', u.Nombre_usuario) As "Nombre de cliente", df.Subtotal AS "Pago por servicio"
+FROM Detalle_Factura df
+INNER JOIN Servicios s on df.Id_Servicio = s.Id_Servicio
+INNER JOIN Facturas f on df.Id_Factura = f.Id_Factura
+INNER JOIN Vehiculos v on v.Patente = f.Patente
+INNER JOIN Usuarios u on u.Id_Usuario = v.id_Usuario
+GROUP BY df.Id_Factura, s.Descripcion_servicio, u.Nombre_usuario, u.Apellido_usuario, df.Subtotal
 GO
+
+CREATE VIEW factura_usuario
+AS
+SELECT f.Id_Factura AS "NÂ° Factura", CONCAT(u.Apellido_usuario, ' ', u.Nombre_usuario) As "Nombre de cliente", SUM(Subtotal) AS Importe From Facturas f
+INNER JOIN Detalle_Factura df on f.Id_Factura = df.Id_Factura
+INNER JOIN Vehiculos v on v.Patente = f.Patente
+INNER JOIN Usuarios u on u.Id_Usuario = v.id_Usuario
+GROUP BY f.Id_Factura, u.Apellido_usuario, u.Nombre_usuario
+GO
+
 CREATE VIEW vehiculo_usuario
 AS
-SELECT v.Id_Marca,v.Id_Modelo,v.Patente, u.Id_Usuario, u.Apellido_usuario,u.Nombre_usuario, u.Telefono_usuario,u.Email_usuario
-FROM Vehiculos AS v inner join Usuarios AS u ON u.Id_Usuario  = v.Id_Usuario
+SELECT v.Patente AS Patente, m.Descripcion_marca as Marca, md.Descripcion_modelo as Modelo,  CONCAT(u.Apellido_usuario, ' ',u.Nombre_usuario) As "Nombre de cliente", u.Telefono_usuario AS Telefono, u.Email_usuario AS EMAIL
+FROM Vehiculos v
+INNER JOIN Usuarios u  ON v.Id_Usuario = u.id_Usuario
+INNER JOIN Modelos md on v.Id_Modelo = md.Id_Modelo and v.Id_Marca = md.Id_Marca
+INNER JOIN Marcas m on md.Id_Marca = m.Id_Marca
 GO
-CREATE VIEW factura_Vehiculo
+
+CREATE VIEW Consultas_Respuestas
 AS
-SELECT v.Patente,v.Id_Marca,v.Id_Modelo,f.Fecha_factura,f.Id_Empleado,f.Id_tipoPago,u.Nombre_usuario, u.Apellido_usuario, u.Telefono_usuario
-FROM Facturas AS f inner join Vehiculos AS v ON f.Patente = v.Patente
-INNER JOIN Usuarios AS u ON v.id_Usuario = u.Id_Usuario
-GO
-CREATE VIEW	factura_Detalle
-AS
-SELECT f.Fecha_factura,f.Id_Usuario, f.Patente, df.Id_Servicio, df.Subtotal
-FROM Facturas AS f inner join Detalle_Factura AS df ON f.Id_Factura = df.Id_Factura
+SELECT s.Descripcion_servicio as "Servicio", c.descripcion_consulta as "Consulta", rc.descripcion_respuesta as "Respuesta" FROM Respuesta_Consulta rc
+INNER JOIN Consultas c on rc.Id_Consulta = c.Id_Consulta and rc.Id_Servicio = c.Id_Servicio
+INNER JOIN Servicios s ON rc.Id_Servicio = s.Id_Servicio
 
 GO
+
+CREATE VIEW lista_turnos
+AS SELECT t.Fecha_reserva as "Fecha Reserva", h.Descripcion_horario AS Horario, CONCAT(u.Apellido_usuario, ' ', u.Nombre_usuario ) as "Nombre Cliente", u.Telefono_usuario , s.Direccion_sucursal AS "Direccion sucursal", s.Razon_Social_sucursal as "Nombre Sucursal" FROM Turno t
+INNER JOIN Sucursal s on t.Id_Sucursal = s.Id_Sucursal
+INNER JOIN Horarios_Atencion h on t.Id_Horario = h.Id_Horario
+INNER JOIN Usuarios u on t.Id_Usuario = u.Id_Usuario
+GO
+
+CREATE VIEW lista_vehiculos
+AS SELECT m.Descripcion_marca as Marca, md.Descripcion_modelo as Modelo FROM Modelos md
+INNER JOIN Marcas m on md.Id_Marca = m.Id_Marca
+Go
