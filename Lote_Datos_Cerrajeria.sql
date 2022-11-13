@@ -1,6 +1,5 @@
---USE cerrajeria;
---GO
-
+USE cerrajeria;
+GO
 --MARCAS--
 EXEC InsertarMarca 'TOYOTA'
 EXEC InsertarMarca 'AUDI'
@@ -17,8 +16,8 @@ EXEC InsertarMarca 'NISSAN'
 EXEC InsertarMarca 'RENAULT'
 EXEC InsertarMarca 'SUBARU'
 EXEC InsertarMarca 'VOLKSWAGEN'
---SELECT * FROM MARCAS
 
+--SELECT * FROM MARCAS
 
 --MODELOS--
 EXEC InsertarModelo 1 ,1,'YARIS'
@@ -119,7 +118,47 @@ EXEC InsertarUsuario 'EREK' ,'CHISWELL' , 3794894513 ,'ECHISWELLQ@EXBLOG.JP' ,'5
 EXEC InsertarUsuario 'KOREN' ,'DESBROW' , 3794192195 ,'KDESBROWR@FOXNEWS.COM' ,'XCZWWHA6' ,'16/11/1994'
 EXEC InsertarUsuario 'EDEN' ,'DURAK' , 3794532015 ,'EDURAKS@EUROPA.EU' ,'A2AQXJUC' ,'13/8/1998'
 EXEC InsertarUsuario 'CULLEN' ,'QUARLES' , 3794234661 ,'CQUARLEST@YCOMBINATOR.COM' ,'CIYQ7S3M' ,'14/7/1985'
+EXEC InsertarUsuario 'MARIA', 'LOPEZ', 3794265848, 'MARI@GMAIL.COM', '125CNJ83', '14/7/1999'
 --SELECT * FROM Usuarios
+
+--Verificar restriccion de edad en usuario
+--EXEC InsertarUsuario 'LUIS', 'THOMSOM', 3794254410, 'LUI@GMAIL.COM', '1F5D788W', '14/7/2010'
+
+EXEC insertarVehiculo AB123CD,1,1,1
+EXEC insertarVehiculo AA682FJ,2,1,2
+EXEC insertarVehiculo AC211FD,3,1,3
+EXEC insertarVehiculo AL485CD,4,1,1
+EXEC insertarVehiculo AA323CD,5,1,5
+EXEC insertarVehiculo AB123CD,6,1,6
+EXEC insertarVehiculo AF642FJ,7,1,7
+EXEC insertarVehiculo AC200FD,8,1,8
+EXEC insertarVehiculo AL455CB,9,1,9
+EXEC insertarVehiculo FJ326CA,10,1,10
+EXEC insertarVehiculo BA123CD,11,1,11
+EXEC insertarVehiculo AD682LK,12,1,12
+EXEC insertarVehiculo AD457GH,13,1,13
+EXEC insertarVehiculo CA384ND,14,1,14
+EXEC insertarVehiculo AA242ND,15,1,15
+EXEC insertarVehiculo AB574JF,1,2,16
+EXEC insertarVehiculo CA658CK,2,2,17
+EXEC insertarVehiculo AA001AS,3,2,18
+EXEC insertarVehiculo CB658AL,4,2,19
+EXEC insertarVehiculo AA746DF,5,2,20
+EXEC insertarVehiculo AB012ND,6,2,21
+EXEC insertarVehiculo NA654AS,7,2,22
+EXEC insertarVehiculo DH453DF,8,2,23
+EXEC insertarVehiculo SJ582SK,9,2,24
+EXEC insertarVehiculo BJ289DK,10,2,25
+EXEC insertarVehiculo AA241ND,11,2,26
+EXEC insertarVehiculo AA354ND,12,2,27
+EXEC insertarVehiculo AF634FB,13,2,28
+EXEC insertarVehiculo AI145NB,14,2,29
+EXEC insertarVehiculo AP225OP,15,2,30
+EXEC insertarVehiculo AO665DK,1,3,31
+
+--SELECT * FROM Vehiculos
+
+
 
 --HORARIOS ATENCION--
 EXEC insertarHorarioAtencion '8:30'
@@ -150,167 +189,123 @@ EXEC insertartipoPago 'CREDITO'
 --SELECT * FROM tipoPago
 
 --SERVICIOS--
-EXEC InsertarServicio 'REPARACIÓN MAQUINA LEVANTA'
-EXEC InsertarServicio 'REPARACIÓN CERRADURA PUERTA'
-EXEC InsertarServicio 'REPARACIÓN CILINDRO DE PUERTA'
-EXEC InsertarServicio 'REPARACIÓN  CILINDRO CONTACTO'
-EXEC InsertarServicio 'BAÚL'
-EXEC InsertarServicio 'APERTURA Y REPARACIÓN DE CAPO'
+EXEC InsertarServicio 'REPARACIÃ“N MAQUINA LEVANTA CRISTALES'
+EXEC InsertarServicio 'REPARACIÃ“N CERRADURA PUERTA'
+EXEC InsertarServicio 'REPARACIÃ“N CILINDRO DE PUERTA'
+EXEC InsertarServicio 'REPARACIÃ“N CILINDRO CONTACTO'
+EXEC InsertarServicio 'REPARACION DE BAÃšL'
+EXEC InsertarServicio 'APERTURA Y REPARACIÃ“N DE CAPO'
 EXEC InsertarServicio 'APERTURA AUTO'
 EXEC InsertarServicio 'COPIA DE LLAVE'
-EXEC InsertarServicio 'COLOCACIÓN DE ALARMA X28 Z20'
-EXEC InsertarServicio 'REPARACIÓN CIERRE CENTRALIZADO'
+EXEC InsertarServicio 'COLOCACIÃ“N DE ALARMA X28 Z20'
+EXEC InsertarServicio 'REPARACIÃ“N CIERRE CENTRALIZADO'
 --SELECT * FROM Servicios;
-
 
 --SUCURSAL--
 EXEC InsertarSucursal 'EDIFICIO-1' ,'Lavalle 165',3794360582
 EXEC InsertarSucursal 'EDIFICIO-2' ,'Roca 325',3794863693
 EXEC InsertarSucursal 'EDIFICIO-3' ,'3 de Abril 621',3794102201
-EXEC InsertarSucursal 'EDIFICIO-5' ,'Uruguay 789',3794221352
-EXEC InsertarSucursal 'EDIFICIO-6' ,'Buenos Aires 69',3794224122
+EXEC InsertarSucursal 'EDIFICIO-4' ,'Uruguay 789',3794221352
+EXEC InsertarSucursal 'EDIFICIO-5' ,'Buenos Aires 69',3794224122
 --SELECT * FROM Sucursal
 
 --TURNO--
-SELECT * FROM Turno
---fecha-horario-sucursal-idusuario
-EXEC InsertarTurno '25/12/2022', 2,1,2
-EXEC InsertarTurno '25/12/2022', 1,1,2
-EXEC InsertarTurno '13/11/2022', 3,2,1
-EXEC InsertarTurno '13/11/2022', 2,1,2
-EXEC InsertarTurno '27/10/2022', 2,2,1
-EXEC InsertarTurno '1/2/2022', 2 ,3 ,2
-EXEC InsertarTurno '18/1/2022', 1,2 ,3
-EXEC InsertarTurno '3/12/2022', 7 ,7 ,7
-EXEC InsertarTurno '5/10/2022', 4,1,3
-EXEC InsertarTurno '21/12/2022', 1,2,3
-EXEC InsertarTurno '9/10/2022', 10 ,1,15
-EXEC InsertarTurno '23/6/2022', 11 ,11 ,1
-EXEC InsertarTurno '5/4/2022', 12 ,2 ,2
-EXEC InsertarTurno '18/2/2022', 13 ,9 ,4
-EXEC InsertarTurno '12/6/2022', 14 ,14 ,3
-EXEC InsertarTurno '13/4/2022', 15 ,15 ,5
-EXEC InsertarTurno '10/8/2022', 16,16 ,2
-EXEC InsertarTurno '22/8/2022', 17,7 ,1
-EXEC InsertarTurno '27/11/2022', 12,2,3
-EXEC InsertarTurno '4/10/2022', 15,9 ,3
-EXEC InsertarTurno '8/4/2022', 1 ,5 ,5
-EXEC InsertarTurno '6/5/2022', 1 ,6 ,4
+truncate table Turno
+truncate table auditoria
+select * from auditoria
+EXEC insertarTurno '1/12/2022', 1,1,1
+EXEC insertarTurno '1/12/2022', 2,1,2
+EXEC insertarTurno '1/12/2022', 3,1,3
+EXEC insertarTurno '1/12/2022', 4,1,4
+EXEC insertarTurno '1/12/2022', 5,1,5
+EXEC insertarTurno '1/12/2022', 1,2,6
+EXEC insertarTurno '1/12/2022', 2,2,7
+EXEC insertarTurno '1/12/2022', 3,2,8
+EXEC insertarTurno '2/12/2022', 4,3,1
+EXEC insertarTurno '2/12/2022', 5,3,2
+EXEC insertarTurno '3/12/2022', 6,3,3
+EXEC insertarTurno '3/12/2022', 1,4,9
+EXEC insertarTurno '3/12/2022', 2,4,10
+EXEC insertarTurno '3/12/2022', 3,4,11
+EXEC insertarTurno '3/12/2022', 4,4,12
+EXEC insertarTurno '3/12/2022', 1,5,13
+EXEC insertarTurno '3/12/2022', 2,5,14
+EXEC insertarTurno '3/12/2022', 3,5,15
+SELECT * FROM turno
 
---SELECT * FROM turno
+--EMPLEADO--
 EXEC insertarEmpleado 'Kimmi' ,'Houseman' , 3794959090, 36438048 ,'6/6/1989' , 1 ,'F'
-EXEC insertarEmpleado 'Logan' ,'Spilling' , 3794885263 ,49680861 ,'1/29/1980' ,1 ,'M'
+EXEC insertarEmpleado 'Logan' ,'Spilling' , 3794885263 ,49680861 ,'1/1/1980' ,1 ,'M'
 EXEC insertarEmpleado 'Bobina' ,'Iannuzzelli' , 3794650638 ,39584746 ,'5/8/1987' ,1 ,'F'
-EXEC insertarEmpleado 'Bernie' ,'Conquer' , 3794237389,42058289 ,'11/30/1992' ,1 ,'M'
+EXEC insertarEmpleado 'Bernie' ,'Conquer' , 3794237389,42058289 ,'11/12/1992' ,1 ,'M'
 EXEC insertarEmpleado 'Chalmers' ,'Errichelli' , 3794967262,36542497 ,'12/6/1999' ,2 ,'M'
 EXEC insertarEmpleado 'Afton' ,'Tiery' , 3794550775 ,48585778 ,'3/2/1994' ,2 ,'F'
 EXEC insertarEmpleado 'Waverley' ,'Grange' , 3794487139 ,38913978 ,'8/4/1983' ,2 ,'M'
-EXEC insertarEmpleado 'Augustine' ,'Rawood' , 3794236144,45978851 ,'11/29/1992' ,2 ,'F'
+EXEC insertarEmpleado 'Augustine' ,'Rawood' , 3794236144,45978851 ,'29/2/1992' ,2 ,'F'
 EXEC insertarEmpleado 'Derron' ,'Mussilli' , 3794414026 ,38081861 ,'6/9/1989' ,3, 'M'
-EXEC insertarEmpleado 'Giralda' ,'Cassey' , 3794390616 ,32258927 ,'2/20/1999' ,3, 'F'
-EXEC insertarEmpleado 'Gerry' ,'Scroggie' , 3794735794 ,37653347 ,'3/16/1983' ,3, 'M'
-EXEC insertarEmpleado 'Alfredo' ,'Burtwell' , 3794117027 ,39666318 ,'11/14/1999' ,3, 'M'
-EXEC insertarEmpleado 'Marcela' ,'Broderick' , 3794395772 ,35907911 ,'7/22/1991' ,4, 'F'
-EXEC insertarEmpleado 'Arlee' ,'Alfuso' , 3794031662 ,35892450 ,'10/28/1990' ,4, 'M'
+EXEC insertarEmpleado 'Giralda' ,'Cassey' , 3794390616 ,32258927 ,'20/12/1999' ,3, 'F'
+EXEC insertarEmpleado 'Gerry' ,'Scroggie' , 3794735794 ,37653347 ,'12/6/1983' ,3, 'M'
+EXEC insertarEmpleado 'Alfredo' ,'Burtwell' , 3794117027 ,39666318 ,'14/11/1999' ,3, 'M'
+EXEC insertarEmpleado 'Marcela' ,'Broderick' , 3794395772 ,35907911 ,'22/7/1991' ,4, 'F'
+EXEC insertarEmpleado 'Arlee' ,'Alfuso' , 3794031662 ,35892450 ,'28/10/1990' ,4, 'M'
 EXEC insertarEmpleado 'Ofilio' ,'Braferton' , 3794107987 ,37713535 ,'3/10/1989' ,4, 'M'
 EXEC insertarEmpleado 'Neils' ,'Sousa' , 3794436230,37928623 ,'5/6/1980' ,4, 'M'
 EXEC insertarEmpleado 'Xenia' ,'Garriock' , 3794057829 ,45884871 ,'9/2/1997' ,5, 'F'
-EXEC insertarEmpleado 'Johnathon' ,'Maunder' , 3794344565 ,40069220 ,'5/24/2000' ,5, 'M'
+EXEC insertarEmpleado 'Johnathon' ,'Maunder' , 3794344565 ,40069220 ,'22/5/2000' ,5, 'M'
 EXEC insertarEmpleado 'Albert' ,'Ibbeson' , 3794050798,42171594 ,'6/1/2001' ,5, 'M'
-EXEC insertarEmpleado 'Marice' ,'Verney' , 3794549709 ,41689393 ,'11/24/1995' ,5, 'F'
-EXEC insertarEmpleado 'Jelene' ,'Lakin' , 3794975199 ,36821005 ,'11/13/1995' ,6, 'F'
-EXEC insertarEmpleado 'Rem' ,'Darracott' , 3794792971 ,38375102 ,'2/4/1994' ,6, 'M'
-EXEC insertarEmpleado 'Aldwin' ,'Slade' , 3794265419 ,41432826 ,'5/19/1987' ,6, 'M'
-EXEC insertarEmpleado 'Audrye' ,'Corser' , 3794275254 ,44455709 ,'10/19/2002' ,6, 'F'
-EXEC insertarEmpleado 'Lee' ,'Fetterplace' , 3794757985 ,36451206 ,'6/24/1996' ,6, 'M'
---SELECT * FROM Empleado;
-
-EXEC insertarVehiculo AB123CD,1,1,1
-EXEC insertarVehiculo AA682FJ,2,1,2
-EXEC insertarVehiculo AC211FD,3,1,3
-EXEC insertarVehiculo AL485CD,4,1,1
-EXEC insertarVehiculo AA323CD,5,1 ,5
-EXEC insertarVehiculo AB123CD,6,1 ,6
-EXEC insertarVehiculo AF642FJ,7,1 ,7
-EXEC insertarVehiculo AC200FD,8,1 ,8
-EXEC insertarVehiculo AL455CB,9,1 ,9
-EXEC insertarVehiculo FJ326CA,10,1 ,10
-EXEC insertarVehiculo BA123CD,11,1 ,11
-EXEC insertarVehiculo AD682LK,12,1 ,12
-EXEC insertarVehiculo AD457GH,13,1 ,13
-EXEC insertarVehiculo CA384ND,14,1 ,14
-EXEC insertarVehiculo AA242ND,15,1 ,15
-
---SELECT * FROM Vehiculo
+EXEC insertarEmpleado 'Marice' ,'Verney' , 3794549709 ,41689393 ,'24/11/1995' ,5, 'F'
+SELECT * FROM Empleado;
 
 
-EXEC insertarConsultas 1,'Cuánto tiempo demora la reparación?' 
-EXEC insertarConsultas 1,'¿Precio aproximado de la reparación?'
-EXEC insertarConsultas 2, '¿Cuánto tiempo demora la reparación'
-EXEC insertarConsultas 2, '¿Precio aproximado de la reparación?'
-EXEC insertarConsultas 3,'¿Precio aproximado de la reparación?'
-EXEC insertarConsultas 4, '¿Precio aproximado de la reparación?'
-EXEC insertarConsultas 4, '¿De no encender el coche puede algún cerrajero encenderlo?'
-EXEC insertarConsultas 5, 'Me forzaron el baúl, cuanto sale la reparación?'
-EXEC insertarConsultas 6, '¿No puedo abrir el capo, que hago'
-EXEC insertarConsultas 6, '¿Cuánto tiempo puede tardar la reparación'
-EXEC insertarConsultas 7,'¿El coche se cerró con la llave adentro?'
-EXEC insertarConsultas 7, '¿Precio aproximado de la apertura?'
-EXEC insertarConsultas 8, '¿Precio aproximado de una copia de llave?'
-EXEC insertarConsultas 8, '¿Se me perdió la última llave, me pueden hacer una copia'
-EXEC insertarConsultas 9, '. ¿Cuánto sale la instalación?'
-EXEC insertarConsultas 9,'¿Si el vehiculo no tiene cierre centralizado se puede agregar?'
-EXEC insertarConsultas 9, '¿Qué trae la instalación?'
-EXEC insertarConsultas 10, '¿Una puerta queda abierta queda abierta al cerrar con el mando a distancia?'
-EXEC insertarConsultas 10, '¿No abre o cierra el vehiculo al utilizar el mando a distancia?'
-EXEC insertarConsultas 10, '¿Perdida del telemando?'
+--CONSULTAS--
+EXEC insertarConsultas 1,1,'CuÃ¡nto tiempo demora la reparaciÃ³n?' 
+EXEC insertarConsultas 2,1,'Â¿Precio aproximado de la reparaciÃ³n?'
+EXEC insertarConsultas 1,2, 'Â¿CuÃ¡nto tiempo demora la reparaciÃ³n'
+EXEC insertarConsultas 2,2, 'Â¿Precio aproximado de la reparaciÃ³n?'
+EXEC insertarConsultas 1,3,'Â¿Precio aproximado de la reparaciÃ³n?'
+EXEC insertarConsultas 1,4, 'Â¿Precio aproximado de la reparaciÃ³n?'
+EXEC insertarConsultas 2,4, 'Â¿De no encender el coche puede algÃºn cerrajero encenderlo?'
+EXEC insertarConsultas 1,5, 'Me forzaron el baÃºl, cuanto sale la reparaciÃ³n?'
+EXEC insertarConsultas 1,6, 'Â¿No puedo abrir el capo, que hago'
+EXEC insertarConsultas 2,6, 'Â¿CuÃ¡nto tiempo puede tardar la reparaciÃ³n'
+EXEC insertarConsultas 1,7,'Â¿El coche se cerrÃ³ con la llave adentro?'
+EXEC insertarConsultas 2,7, 'Â¿Precio aproximado de la apertura?'
+EXEC insertarConsultas 1,8, 'Â¿Precio aproximado de una copia de llave?'
+EXEC insertarConsultas 2,8, 'Â¿Se me perdiÃ³ la Ãºltima llave, me pueden hacer una copia'
+EXEC insertarConsultas 1,9, '. Â¿CuÃ¡nto sale la instalaciÃ³n?'
+EXEC insertarConsultas 2,9,'Â¿Si el vehiculo no tiene cierre centralizado se puede agregar?'
+EXEC insertarConsultas 3,9, 'Â¿QuÃ© trae la instalaciÃ³n?'
+EXEC insertarConsultas 1,10, 'Â¿Una puerta queda abierta queda abierta al cerrar con el mando a distancia?'
+EXEC insertarConsultas 2,10, 'Â¿No abre o cierra el vehiculo al utilizar el mando a distancia?'
+EXEC insertarConsultas 3,10, 'Â¿Perdida del telemando?'
 --SELECT * FROM Consultas
 
+--RESPUESTAS--
 
-EXEC insertarRespuestas 1, 'Todo tipo de trabajo tarda un aproximado de 2 – 3 Horas, 
-excepto auto de alta gama que demanda más tiempo'
-EXEC insertarRespuestas 1, 'Puede rondar los $9000 a $11500 el trabajo el tipo de levanta 
-cristal si es manual o eléctrico y variando las piezas a 
-remplazar'
-EXEC insertarRespuestas 2, 'La reparación puede tardar 2 hora aproximadamente'
-EXEC insertarRespuestas 2, 'El precio puede rondar si es reparación o cambio total de 
-cerradura de puerta'
-EXEC insertarRespuestas 3,'l precio puede rondar si es reparación o cambio total de 
-cerradura de puerta'
-EXEC insertarRespuestas 4, 'La reparación puede rondar los 15000 pesos sin contar el 
-contacto si es necesario cambiar'
-EXEC insertarRespuestas 4, 'Si. Nos tiene que pasar la dirección, el cerrajero lo pone en 
-contacto y arranque para llevar a cerrajería para el arreglo'
-EXEC insertarRespuestas 5, 'Un cerrajero puede hacer la apertura, sin reparación solo 
-apertura para solucionar el momento'
-EXEC insertarRespuestas 5, 'La reparación todo vale conforme al daño generado, se tiene 
-que hacer acercar a la cerrajería y se le dará un presupuesto 
-del costo del servicio'
-EXEC insertarRespuestas 6, 'No insistir en abrir y acercarse a la cerrajería'
-EXEC insertarRespuestas 6, 'La apertura de capo puede demandar más tiempo, se 
-recomienda que deja al menos un día completo'
-EXEC insertarRespuestas 7,'Se le solicitara la dirección, numero celular y que auto es el 
-que posee'
-EXEC insertarRespuestas 7,'Apertura en horario comercial puede rondar los $2200'
-EXEC insertarRespuestas 8, 'Copia de llave con trasponer cuesta $9800'
-EXEC insertarRespuestas 8, 'No, la perdida de la última llave se le pedirá que traiga el coche 
-con grúa y se le avisara cuando se halla el tallado de nuevas 
-llaves con transponder'
-EXEC insertarRespuestas 9,'Si es solo instalación de alarma cuesta $29500, sin cierre 
-centralizado, el vehículo lo debe tener'
-EXEC insertarRespuestas 9,'Si, tiene un costo adicional, seria instalación de alarma y cierra 
-con un costo actual $39500'
-EXEC insertarRespuestas 9,'La instalación trae 2 controles con su volumétrico de fabrica'
-EXEC insertarRespuestas 10, 'Es problema de cierre centralizado, se hace pasar el vehículo
-en la cerrajería y se repara la puerta que no cierra'
-EXEC insertarRespuestas 10, 'Puede ser problema de sistema de cierre centralizado o 
-problema con el telemando solo se puede verificar con el 
-vehículo en la cerrajería'
-EXEC insertarRespuestas 10, 'Se puede generar otro telemando para el vehículo que incluye 
-también el encendido del vehículo, es necesario saber el 
-mólelo y marca del vehículo para ver disponible de stock'
+EXEC insertarRespuestas 1,1, 'Todo tipo de trabajo tarda un aproximado de 2 â€“ 3 Horas, 
+excepto auto de alta gama que demanda mÃ¡s tiempo'
+EXEC insertarRespuestas 2,1, 'Puede rondar los $9000 a $11500 el trabajo el tipo de levanta cristal si es manual o elÃ©ctrico y variando las piezas a remplazar'
+EXEC insertarRespuestas 1,2, 'La reparaciÃ³n puede tardar 2 hora aproximadamente'
+EXEC insertarRespuestas 2,2, 'El precio puede rondar si es reparaciÃ³n o cambio total de cerradura de puerta'
+EXEC insertarRespuestas 1,3,'l precio puede rondar si es reparaciÃ³n o cambio total de cerradura de puerta'
+EXEC insertarRespuestas 1,4, 'La reparaciÃ³n puede rondar los 15000 pesos sin contar el contacto si es necesario cambiar'
+EXEC insertarRespuestas 2,4, 'Si. Nos tiene que pasar la direcciÃ³n, el cerrajero lo pone en contacto y arranque para llevar a cerrajerÃ­a para el arreglo'
+EXEC insertarRespuestas 1,5, 'Un cerrajero puede hacer la apertura, sin reparaciÃ³n solo apertura para solucionar el momento' 
+EXEC insertarRespuestas 2,5, 'La reparaciÃ³n todo vale conforme al daÃ±o generado, se tiene que hacer acercar a la cerrajerÃ­a y se le darÃ¡ un presupuesto del costo del servicio'
+EXEC insertarRespuestas 1,6, 'No insistir en abrir y acercarse a la cerrajerÃ­a'
+EXEC insertarRespuestas 2,6, 'La apertura de capo puede demandar mÃ¡s tiempo, se  recomienda que deja al menos un dÃ­a completo'
+EXEC insertarRespuestas 1,7,'Se le solicitara la direcciÃ³n, numero celular y que auto es el que posee'
+EXEC insertarRespuestas 2,7,'Apertura en horario comercial puede rondar los $2200'
+EXEC insertarRespuestas 1,8, 'Copia de llave con trasponer cuesta $9800'
+EXEC insertarRespuestas 2,8, 'No, la perdida de la Ãºltima llave se le pedirÃ¡ que traiga el coche con grÃºa y se le avisara cuando se halla el tallado de nuevas  llaves con transponder'
+EXEC insertarRespuestas 1,9,'Si es solo instalaciÃ³n de alarma cuesta $29500, sin cierre centralizado, el vehÃ­culo lo debe tener'
+EXEC insertarRespuestas 2,9,'Si, tiene un costo adicional, seria instalaciÃ³n de alarma y cierra con un costo actual $39500'
+EXEC insertarRespuestas 3,9,'La instalaciÃ³n trae 2 controles con su volumÃ©trico de fabrica'
+EXEC insertarRespuestas 1,10, 'Es problema de cierre centralizado, se hace pasar el vehÃ­culo en la cerrajerÃ­a y se repara la puerta que no cierra'
+EXEC insertarRespuestas 2,10, 'Puede ser problema de sistema de cierre centralizado o problema con el telemando solo se puede verificar con el vehÃ­culo en la cerrajerÃ­a'
+EXEC insertarRespuestas 3,10, 'Se puede generar otro telemando para el vehÃ­culo que incluye tambiÃ©n el encendido del vehÃ­culo, es necesario saber el mÃ³lelo y marca del vehÃ­culo para ver disponible de stock'
 
-
+--FACTURA--
 EXEC insertarFactura AB123CD,1,1,'09/08/2021'
 EXEC insertarFactura AA682FJ,1,1,'10/12/2021'
 EXEC insertarFactura AC211FD,2,1,'6/6/2022'
@@ -325,7 +320,6 @@ EXEC insertarFactura BA123CD,6,3, '2/1/2021'
 EXEC insertarFactura AD682LK,6,1, '6/10/2022'
 EXEC insertarFactura AD457GH,7,2, '10/10/2022'
 EXEC insertarFactura CA384ND,7,3, '6/5/2021'
-
 --SELECT * FROM Facturas
 
 EXEC insertarFacturaDetalle 1, 1,11000
@@ -352,5 +346,6 @@ EXEC insertarFacturaDetalle 12, 4,4500
 EXEC insertarFacturaDetalle 13, 9,8500
 EXEC insertarFacturaDetalle 13, 8,9500
 EXEC insertarFacturaDetalle 14, 5,15000
+--SELECT * FROM Detalle_Factura
 
 
