@@ -32,9 +32,7 @@ El presente proyecto pretende mostrar el funcionamiento de una base de datos de 
 * Transaccion, Permisos
 
 ## Construido con 🛠️
-
-_Menciona las herramientas que utilizaste para crear tu proyecto_
-
+* [MOCKAROO](https://www.mockaroo.com/) - Usado para generar los datos de prueba
 * [VERTABELO](https://vertabelo.com/) - Usado para generar diagrama ERS
 * [SQL SERVER](https://maven.apache.org/) - Usado para crear la estructura de la base de datos y realizar operaciones en la base de datos
 
