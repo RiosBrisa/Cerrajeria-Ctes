@@ -1,4 +1,5 @@
 --TRANSACCION
+/*
 
 BEGIN TRANSACTION 
 BEGIN TRY
@@ -26,6 +27,8 @@ END CATCH
 -- Si la transaccion falla no debe figurar una factura con la patente "BA564AV"
 SELECT * FROM Facturas
 ORDER BY Id_Factura desc
+
+*/
 
 
 --PERMISOS--
