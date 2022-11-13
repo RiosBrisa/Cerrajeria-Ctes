@@ -1,0 +1,183 @@
+--TRANSACCION
+
+BEGIN TRANSACTION 
+BEGIN TRY
+	/*Registrar Cabecera de factura*/
+    EXEC insertarFactura AB384KL,7,3, '6/5/2022'
+	/*Registrar Detalle de Factura*/
+	--Dato '0' ingresados erroneamente para generar el error
+	EXEC insertarFacturaDetalle 0, 3,9500
+    EXEC insertarFacturaDetalle 15, 3,15000
+    /*Registrar Cabecera de factura*/
+    EXEC insertarFactura BA564AV,1,2, '6/5/2022'
+	/*Registrar Detalle de Factura*/
+	EXEC insertarFacturaDetalle 0, 1,50000
+    EXEC insertarFacturaDetalle 15, 2,25000
+	/* Confirmamos la transaccion*/
+	COMMIT TRANSACTION 
+END TRY
+BEGIN CATCH
+	/* Ocurrió un error, deshacemos los cambios*/ 
+ROLLBACK TRANSACTION
+PRINT 'Ha ocurrido un error!'
+END CATCH
+
+
+-- Si la transaccion falla no debe figurar una factura con la patente "BA564AV"
+SELECT * FROM Facturas
+ORDER BY Id_Factura desc
+
+
+--PERMISOS--
+
+--Crear usuario superAdministrador--
+CREATE login superAdministrador with password='1234',
+CHECK_EXPIRATION= OFF, CHECK_POLICY=OFF,
+DEFAULT_DATABASE= cerrajeria;
+create user superAdministrador for login superAdministrador
+EXEC sp_addrolemember 'db_ddladmin', 'superAdministrador';
+EXEC sp_addrolemember 'db_datawriter','superAdministrador';
+EXEC sp_addrolemember 'db_datareader','superAdministrador';
+
+GO
+GRANT CREATE TABLE TO superAdministrador
+GRANT CREATE VIEW TO superAdministrador
+GRANT CREATE PROCEDURE TO superAdministrador
+GRANT EXECUTE TO superAdministrador
+GO
+
+/*Sentencias para borrar superAdministrador
+drop login superAdministrador;
+drop user superAdministrador;
+*/
+
+
+--Crear usuario Administrador--
+CREATE login administrador with password='1234',
+CHECK_EXPIRATION= OFF, CHECK_POLICY=OFF,
+DEFAULT_DATABASE= cerrajeria;
+CREATE USER administrador FOR LOGIN administrador WITH DEFAULT_SCHEMA = [dbo];
+
+--Crear db_rolAdministrador en el que se van a asignar los permisos
+CREATE ROLE db_rolAdministrador
+-- Asigna permisos al rol
+GRANT INSERT,SELECT,UPDATE ON Turno to db_rolAdministrador;
+GRANT INSERT,SELECT,UPDATE ON Usuarios to db_rolAdministrador;
+GRANT INSERT,SELECT,UPDATE ON Turno to db_rolRecepcionista;
+GRANT INSERT,SELECT,UPDATE ON Horarios_Atencion to db_rolAdministrador;
+GRANT INSERT,SELECT,UPDATE ON Modelos to db_rolAdministrador;
+GRANT INSERT,SELECT,UPDATE ON Marcas to db_rolAdministrador;
+GRANT INSERT,SELECT,UPDATE ON Empleado to db_rolAdministrador;
+GRANT INSERT,SELECT,UPDATE ON Servicios to db_rolAdministrador;
+GRANT INSERT,SELECT,UPDATE ON TipoPago to db_rolAdministrador;
+GRANT INSERT,SELECT,UPDATE ON Usuarios to db_rolAdministrador;
+GRANT SELECT, UPDATE ON Servicios to db_rolAdministrador;
+GRANT SELECT, UPDATE ON Turno to db_rolAdministrador;
+GRANT INSERT,SELECT,UPDATE ON Detalle_Factura to db_rolAdministrador;
+GRANT INSERT,SELECT,UPDATE ON Facturas to db_rolAdministrador;
+REVOKE DELETE ON Facturas TO db_rolAdministrador;
+REVOKE DELETE ON Servicios TO db_rolAdministrador;
+REVOKE DELETE ON Detalle_Factura TO db_rolAdministrador;
+REVOKE DELETE ON Usuarios TO db_rolAdministrador;
+GRANT EXECUTE ON OBJECT:: dbo.insertarUsuario TO db_rolAdministrador;
+GRANT EXECUTE ON OBJECT:: dbo.modificarUsuario TO db_rolAdministrador;
+GRANT EXECUTE ON OBJECT:: dbo.bajaUsuario TO db_rolAdministrador;
+GRANT SELECT ON OBJECT:: dbo.lista_vehiculos TO db_rolAdministrador;
+GRANT SELECT ON OBJECT:: dbo.vehiculo_usuario TO db_rolAdministrador;
+GRANT SELECT ON OBJECT:: dbo.lista_turnos TO db_rolAdministrador;
+GRANT SELECT ON OBJECT:: dbo.Detalles_Facturacion TO db_rolAdministrador;
+GRANT SELECT ON OBJECT:: dbo.Consultas_Respuestas TO db_rolAdministrador;
+GRANT SELECT ON OBJECT:: dbo.factura_usuario TO db_rolAdministrador;
+GRANT EXECUTE ON OBJECT:: dbo.insertarMarca TO db_rolAdministrador;
+GRANT EXECUTE ON OBJECT:: dbo.modificarMarca TO db_rolAdministrador;
+GRANT EXECUTE ON OBJECT:: dbo.bajaMarca TO db_rolAdministrador;
+GRANT EXECUTE ON OBJECT:: dbo.insertarModelo TO db_rolAdministrador;
+GRANT EXECUTE ON OBJECT:: dbo.modificarModelo TO db_rolAdministrador;
+GRANT EXECUTE ON OBJECT:: dbo.bajaModelo TO db_rolAdministrador;
+GRANT EXECUTE ON OBJECT:: dbo.insertarVehiculo TO db_rolAdministrador;
+GRANT EXECUTE ON OBJECT:: dbo.modificarVehiculo TO db_rolAdministrador;
+GRANT EXECUTE ON OBJECT:: dbo.bajaVehiculo TO db_rolAdministrador;
+GRANT EXECUTE ON OBJECT:: dbo.insertarEmpleado TO db_rolAdministrador;
+GRANT EXECUTE ON OBJECT:: dbo.modificarEmpleado TO db_rolAdministrador;
+GRANT EXECUTE ON OBJECT:: dbo.bajaEmpleado TO db_rolAdministrador;
+GRANT EXECUTE ON OBJECT:: dbo.insertarServicio TO db_rolAdministrador;
+GRANT EXECUTE ON OBJECT:: dbo.modificarServicio TO db_rolAdministrador;
+GRANT EXECUTE ON OBJECT:: dbo.bajaServicio TO db_rolAdministrador;
+GRANT EXECUTE ON OBJECT:: dbo.insertartipoPago TO db_rolAdministrador;
+GRANT EXECUTE ON OBJECT:: dbo.modificartipoPago TO db_rolAdministrador;
+GRANT EXECUTE ON OBJECT:: dbo.bajatipoPago TO db_rolAdministrador;
+GO
+
+-- Agrega un usuario al recién creado rol db_execute role
+EXEC sp_addrolemember 'db_rolAdministrador', 'administrador'
+
+
+/* Sentencias para borrar los usuario
+drop login administrador;
+drop user administrador;
+*/
+
+
+--Crear usuario Empleado--
+CREATE login empleado with password='1234',
+CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF,
+DEFAULT_DATABASE= cerrajeria;
+CREATE USER empleado FOR LOGIN empleado WITH DEFAULT_SCHEMA = [dbo];
+
+
+CREATE ROLE db_rolEmpleado
+
+-- Asigna permisos al rol
+
+GO
+GRANT INSERT,SELECT,UPDATE ON Consultas TO db_rolEmpleado;
+GRANT INSERT,SELECT,UPDATE ON Respuesta_Consulta to db_rolEmpleado;
+GRANT INSERT,SELECT,UPDATE ON Modelos to db_rolEmpleado;
+GRANT INSERT,SELECT,UPDATE ON Marcas to db_rolEmpleado;
+GRANT INSERT,SELECT,UPDATE ON Servicios to db_rolEmpleado;
+GRANT INSERT,SELECT,UPDATE ON Horarios_Atencion to db_rolEmpleado;
+GRANT INSERT,SELECT,UPDATE ON Turno to db_rolEmpleado;
+GRANT INSERT,SELECT,UPDATE ON TipoPago to db_rolEmpleado;
+GRANT INSERT,SELECT,UPDATE ON auditoria to db_rolEmpleado;
+GRANT SELECT, UPDATE ON Turno to db_rolEmpleado;
+GRANT EXECUTE ON OBJECT:: dbo.insertarFactura TO db_rolEmpleado;
+GRANT EXECUTE ON OBJECT:: dbo.bajaFactura TO db_rolEmpleado;
+GRANT EXECUTE ON OBJECT:: dbo.modificarFactura TO db_rolEmpleado;
+GRANT EXECUTE ON OBJECT:: dbo.insertarFacturaDetalle TO db_rolEmpleado;
+GRANT EXECUTE ON OBJECT:: dbo.modificarFacturaDetalle TO db_rolEmpleado;
+GRANT EXECUTE ON OBJECT:: dbo.bajaFacturaDetalle TO db_rolEmpleado;
+GRANT SELECT ON OBJECT:: dbo.lista_vehiculos TO db_rolEmpleado;
+GRANT SELECT ON OBJECT:: dbo.vehiculo_usuario TO db_rolEmpleado;
+GRANT SELECT ON OBJECT:: dbo.lista_turnos TO db_rolEmpleado;
+GRANT SELECT ON OBJECT:: dbo.Detalles_Facturacion TO db_rolEmpleado;
+GRANT SELECT ON OBJECT:: dbo.factura_usuario TO db_rolEmpleado;
+GRANT EXECUTE ON OBJECT:: dbo.modificarMarca TO db_rolEmpleado;
+GRANT EXECUTE ON OBJECT:: dbo.modificarModelo TO db_rolEmpleado;
+GRANT EXECUTE ON OBJECT:: dbo.insertarTurno TO db_rolEmpleado;
+GRANT EXECUTE ON OBJECT:: dbo.modificarTurno TO db_rolEmpleado;
+GRANT EXECUTE ON OBJECT:: dbo.bajaTurno TO db_rolEmpleado;
+GRANT EXECUTE ON OBJECT:: dbo.insertartipoPago TO db_rolEmpleado;
+GRANT EXECUTE ON OBJECT:: dbo.modificartipoPago TO db_rolEmpleado;
+GRANT EXECUTE ON OBJECT:: dbo.bajatipoPago TO db_rolEmpleado;
+GRANT EXECUTE ON OBJECT::dbo.insertarConsultas TO db_rolEmpleado;
+GRANT EXECUTE ON OBJECT::dbo.modificarConsultas TO db_rolEmpleado;
+GRANT EXECUTE ON OBJECT::dbo.bajaConsultas TO db_rolEmpleado;
+GRANT EXECUTE ON OBJECT::dbo.insertarRespuestas TO db_rolEmpleado;
+GRANT EXECUTE ON OBJECT::dbo.modificarRespuestas TO db_rolEmpleado;
+GRANT EXECUTE ON OBJECT::dbo.bajaRespuestas TO db_rolEmpleado;
+
+GO
+
+-- Agrega un usuario al recién creado rol db_execute role
+EXEC sp_addrolemember 'db_rolEmpleado', 'empleado'
+
+
+
+-- Disable all constraints for database
+--EXEC sp_msforeachtable "ALTER TABLE ? NOCHECK CONSTRAINT all"
+-- Enable all constraints for database
+--EXEC sp_msforeachtable "ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all"
+--SELECT * FROM turno
+
+
+
