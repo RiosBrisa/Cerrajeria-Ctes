@@ -189,7 +189,8 @@ EXEC sp_addrolemember 'db_rolSuperAdministrador', 'SuperAdministrador'
 * Lote_Datos_Cerrajeria - Este script contiene los datos a insertar en las tablas, los mismo son insertados en sus respectivas tablas mediante la incovacion de procesos almacenados.
 
 
-El procedimiento se ejecuta colocando "EXECUTE" (o "EXEC") seguido del nombre del procedimiento y los valores para los parametros del procedimiento
+El procedimiento se ejecuta colocando "EXECUTE" (o "EXEC") seguido del nombre del procedimiento y los valores para los parametros.
+
 _Sintaxis de invocacion de una procedimiento almacenado_
 ```
 EXEC InsertarMarca 'TOYOTA'
