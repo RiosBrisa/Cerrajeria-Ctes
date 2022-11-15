@@ -194,21 +194,6 @@ _Sintaxis de invocacion de una procedimiento almacenado_
 ```
 EXEC InsertarMarca 'TOYOTA'
 ```
-### Analice las pruebas end-to-end 🔩
-
-_Explica que verifican estas pruebas y por qué_
-
-```
-Da un ejemplo
-```
-
-### Y las pruebas de estilo de codificación ⌨️
-
-_Explica que verifican estas pruebas y por qué_
-
-```
-Da un ejemplo
-```
 
 ## Construido con 🛠️
 * [MOCKAROO](https://www.mockaroo.com/) - Usado para generar los datos de prueba
