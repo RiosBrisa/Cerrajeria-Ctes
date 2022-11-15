@@ -3,8 +3,7 @@
    <img src="https://img.shields.io/badge/STATUS-EN%20DESAROLLO-green">
    </p>
 
-El presente proyecto pretende mostrar el funcionamiento de una base de datos de una aplicación de la empresa Cerrajeria Ctes. Trataremos de explicar las relaciones existentes entre el usuario y el programa así como las diferentes funcionalidades a la cuales tiene acceso mediante un registro previo de sus datos. Esta aplicación busca agilizar la gestión de la empresa para la atenciones en sucursales, consultas de usuarios acerca de los diferentes servicios que ofrece la empresa , además de poder ver las facturas por servicios realizados.
-
+El repositorio  se diseño con la finalidad de mostrar el funcionamiento de una base de datos.
 
 ### Dependencias 📋
 
