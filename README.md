@@ -207,9 +207,9 @@ Puedes encontrar mas informacio sobre el proyecto en [Wiki](https://github.com/R
 
 ## Autores ✒️
 
-* **Rios, Brisa Abigail** - *Trabajo Inicial* - (https://github.com/RiosBrisa/)
-* **Sanchez Duete, Osvaldo Mauricio** - *Trabajo Inicial* - [sandutmau] (https://github.com/sandutmau)
-* **Vallejos Salgado, Azul Maia** - *Trabajo Inicial* - [Maia] (https://github.com/bleucode)
+* **Rios, Brisa Abigail** - *Trabajo Inicial* - [RiosBrisa](https://github.com/RiosBrisa/)
+* **Sanchez Duete, Osvaldo Mauricio** - *Trabajo Inicial* - [sandutmau](https://github.com/sandutmau)
+* **Vallejos Salgado, Azul Maia** - *Trabajo Inicial* - [Maia](https://github.com/bleucode)
 * **Resoagli, Gaston** - *Trabajo Inicial* - [GastonResoagli](https://github.com/GastonResoagli)
 
 
