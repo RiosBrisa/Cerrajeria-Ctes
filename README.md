@@ -31,7 +31,7 @@ El repositorio  se diseño con la finalidad de mostrar el funcionamiento de una 
 * Transaccion, Permisos
 
 
-## Archivos ⚙️
+## Scripts ⚙️
 
 * DefinicionModelosDatos_Cerrajeria2022.sql: Este script contiene la sentencia necesarias para crear la base de datos con sus respectivas tablas.
 
