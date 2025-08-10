@@ -202,7 +202,7 @@ EXEC InsertarMarca 'TOYOTA'
 
 ## Wiki 📖
 
-Puedes encontrar mas informacio sobre el proyecto en [Wiki](https://github.com/RiosBrisa/Cerrajeria-Ctes/wiki)
+Puedes encontrar mas información sobre el proyecto en [Wiki](https://github.com/RiosBrisa/Cerrajeria-Ctes/wiki)
 
 ## Autores ✒️
 
